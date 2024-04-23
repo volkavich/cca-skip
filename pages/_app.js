@@ -3,16 +3,12 @@ import '@interchain-ui/react/styles';
 import { wallets } from 'cosmos-kit';
 import { ChainProvider } from '@cosmos-kit/react';
 import { assets, chains } from 'chain-registry';
-import {
-  Box,
-  ThemeProvider,
-  useColorModeValue,
-  useTheme,
-} from '@interchain-ui/react';
+import { ThemeProvider, useTheme } from '@interchain-ui/react';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
 
 function MyApp({ Component, pageProps }) {
-  const { themeClass } = useTheme();
-
   const signerOptions = {
     // signingStargate: () => {
     //   return getSigningCosmosClientOptions();
@@ -39,13 +35,9 @@ function MyApp({ Component, pageProps }) {
         }}
         signerOptions={signerOptions}
       >
-        <Box
-          className={themeClass}
-          minHeight='100dvh'
-          backgroundColor={useColorModeValue('$white', '$background')}
-        >
+        <main className={inter.className}>
           <Component {...pageProps} />
-        </Box>
+        </main>
       </ChainProvider>
     </ThemeProvider>
   );
