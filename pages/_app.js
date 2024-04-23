@@ -1,9 +1,10 @@
+'use client';
 import '../styles/globals.css';
 import '@interchain-ui/react/styles';
 import { wallets } from 'cosmos-kit';
 import { ChainProvider } from '@cosmos-kit/react';
 import { assets, chains } from 'chain-registry';
-import { ThemeProvider, useTheme } from '@interchain-ui/react';
+import { ThemeProvider } from '@interchain-ui/react';
 import { Inter } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
