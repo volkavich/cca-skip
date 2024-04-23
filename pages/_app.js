@@ -10,7 +10,7 @@ import {
   useTheme,
 } from '@interchain-ui/react';
 
-function CreateCosmosApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   const { themeClass } = useTheme();
 
   const signerOptions = {
@@ -51,4 +51,4 @@ function CreateCosmosApp({ Component, pageProps }) {
   );
 }
 
-export default CreateCosmosApp;
+export default MyApp;
