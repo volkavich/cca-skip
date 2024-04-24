@@ -1,21 +1,17 @@
-import * as React from 'react';
-import { Dialog, IconButton, CircularProgress } from '@mui/material';
-import useSourceChainsStore from '../../store/sourceChainsStore';
+import React from 'react';
 import styles from './Source.module.css';
+import useSourceStore from '../../store/sourceStore';
+import useDataStore from '../../store/dataStore';
+import { Dialog, IconButton, CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 const SourceChainsDialog = () => {
-  const {
-    hideSourceChainDialog,
-    sourceChainDialogOpen,
-    sourceChainsData,
-    selectSourceChain,
-    fetchSourceChainsDataInProgress,
-  } = useSourceChainsStore();
+  const { chains, fetchChainsInProgress } = useDataStore();
+  const { hideSourceChainDialog, sourceChainDialogOpen, setSourceChain } = useSourceStore();
 
   const handleClick = (value) => {
-    selectSourceChain(value);
+    setSourceChain(value);
     hideSourceChainDialog();
   };
 
@@ -32,24 +28,19 @@ const SourceChainsDialog = () => {
           </IconButton>
           <h2>Select Source Network</h2>
         </div>
-        {fetchSourceChainsDataInProgress ? (
+        {fetchChainsInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          sourceChainsData &&
-          sourceChainsData.map((chain) => (
+          chains &&
+          chains.map((chain) => (
             <div
               className={styles.chain_info}
               key={chain.chain_id}
               onClick={() => handleClick(chain)}
             >
-              <Image
-                src={chain.logo_uri}
-                alt={chain.chain_name}
-                width={30}
-                height={30}
-              />
+              <Image src={chain.logo_uri} alt={chain.chain_name} width={30} height={30} />
               <div className={styles.chain_name}>
                 <p>{chain.chain_name}</p>
                 <span>{chain.chain_id}</span>

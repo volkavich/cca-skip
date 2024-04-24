@@ -1,43 +1,39 @@
 import React from 'react';
 import styles from './Source.module.css';
-import useSourceChainsStore from '../../store/sourceChainsStore';
-import useSourceTokensStore from '../../store/sourceTokensStore';
+import useSourceStore from '../../store/sourceStore';
+import useDataStore from '../../store/dataStore';
 import { Button } from '@mui/material';
-import SourceChainsDialog from './SourceChainsDialog';
-import SourceTokensDialog from './SourceTokensDialog';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import Image from 'next/image';
+import SourceChainsDialog from './SourceChainsDialog';
+import SourceTokensDialog from './SourceTokensDialog';
 
 const Source = () => {
-  const {
-    fetchSourceChainData,
-    sourceChainsData,
-    sourceChainDialogOpen,
-    showSourceChainDialog,
-    selectedSourceChain,
-  } = useSourceChainsStore();
+  const { chains, fetchChains, fetchTokens } = useDataStore();
 
   const {
-    fetchSourceTokenData,
-    sourceTokenDialogOpen,
+    sourceChain,
+    sourceToken,
+    showSourceChainDialog,
+    sourceChainDialogOpen,
     showSourceTokenDialog,
-    selectedToken,
-  } = useSourceTokensStore();
+    sourceTokenDialogOpen,
+  } = useSourceStore();
 
   React.useEffect(() => {
-    if (sourceChainDialogOpen && sourceChainsData && !sourceChainsData.length) {
-      fetchSourceChainData();
+    if (sourceChainDialogOpen && chains && !chains.length) {
+      fetchChains();
     }
   }, [sourceChainDialogOpen]);
 
   React.useEffect(() => {
     if (
       sourceTokenDialogOpen &&
-      selectedSourceChain &&
-      Object.keys(selectedSourceChain).length > 0 &&
-      selectedToken.chain_id !== selectedSourceChain.chain_id
+      sourceChain &&
+      Object.keys(sourceChain).length > 0 &&
+      sourceToken.chain_id !== sourceChain.chain_id
     ) {
-      fetchSourceTokenData(selectedSourceChain.chain_id);
+      fetchTokens(sourceChain.chain_id);
     }
   }, [sourceTokenDialogOpen]);
 
@@ -47,16 +43,15 @@ const Source = () => {
       <div className={styles.main_section}>
         <div className={styles.col1}>
           <Button onClick={() => showSourceChainDialog()}>
-            {selectedSourceChain &&
-            Object.keys(selectedSourceChain).length > 0 ? (
+            {sourceChain && Object.keys(sourceChain).length > 0 ? (
               <div className={styles.selected_chain}>
                 <Image
-                  src={selectedSourceChain.logo_uri}
-                  alt={selectedSourceChain.chain_name}
+                  src={sourceChain.logo_uri}
+                  alt={sourceChain.chain_name}
                   width={30}
                   height={30}
                 />
-                <p>{selectedSourceChain.chain_name}</p>
+                <p>{sourceChain.chain_name}</p>
               </div>
             ) : (
               'Select Chain'
@@ -64,20 +59,13 @@ const Source = () => {
             <RiArrowDropDownLine />
           </Button>
           <Button
-            disabled={
-              !selectedSourceChain || !Object.keys(selectedSourceChain).length
-            }
+            disabled={!sourceChain || !Object.keys(sourceChain).length}
             onClick={() => showSourceTokenDialog()}
           >
-            {selectedToken && Object.keys(selectedToken).length > 0 ? (
+            {sourceToken && Object.keys(sourceToken).length > 0 ? (
               <div className={styles.selected_chain}>
-                <Image
-                  src={selectedToken.logo_uri}
-                  alt={selectedToken.name}
-                  width={30}
-                  height={30}
-                />
-                <p>{selectedToken.name}</p>
+                <Image src={sourceToken.logo_uri} alt={sourceToken.name} width={30} height={30} />
+                <p>{sourceToken.name}</p>
               </div>
             ) : (
               'Select Token'

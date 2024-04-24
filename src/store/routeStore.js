@@ -4,14 +4,10 @@ import axios from 'axios';
 
 const useRouteStore = create((set) => ({
   routeData: [],
+  routeFound: '',
   postRouteInProgress: false,
 
-  postRouteRequest: async (
-    sourceDenom,
-    sourceChainId,
-    destinationDenom,
-    destinationChainId
-  ) => {
+  postRouteRequest: async (sourceDenom, sourceChainId, destinationDenom, destinationChainId) => {
     set({ postRouteInProgress: true });
     const options = {
       method: 'POST',
@@ -26,9 +22,9 @@ const useRouteStore = create((set) => ({
         source_asset_chain_id: sourceChainId,
         dest_asset_denom: destinationDenom,
         dest_asset_chain_id: destinationChainId,
-        cumulative_affiliate_fee_bps: null,
-        allow_multi_tx: false,
-        allow_unsafe: false,
+        cumulative_affiliate_fee_bps: '0',
+        allow_multi_tx: true,
+        allow_unsafe: true,
         smart_relay: true,
       },
     };
@@ -37,11 +33,15 @@ const useRouteStore = create((set) => ({
       const response = await axios.request(options);
       set({
         routeData: response.data,
+        routeFound: 'true',
       });
     } catch (error) {
+      set({
+        routeFound: 'error',
+      });
       console.error(error);
     } finally {
-      set({ postRouteInProgress: true });
+      set({ postRouteInProgress: false });
     }
   },
 }));

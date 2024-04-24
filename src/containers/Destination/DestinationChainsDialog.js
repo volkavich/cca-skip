@@ -1,59 +1,51 @@
-import * as React from 'react';
-import { Dialog, IconButton, CircularProgress } from '@mui/material';
+import React from 'react';
 import styles from './Destination.module.css';
-// import Image from 'next/image';
-import { IoArrowBackOutline } from 'react-icons/io5';
 import useDestinationStore from '../../store/destinationStore';
+import useDataStore from '../../store/dataStore';
+import { Dialog, IconButton, CircularProgress } from '@mui/material';
+import Image from 'next/image';
+import { IoArrowBackOutline } from 'react-icons/io5';
 
 const DestinationChainsDialog = () => {
-  const {
-    destinationData,
-    postDestinationInProgress,
-    destinationChainsDialogOpen,
-    hideDestinationChainsDialog,
-    setDestinationChain,
-  } = useDestinationStore();
+  const { destinationChainDialogOpen, hideDestinationChainDialog, setDestinationChain } =
+    useDestinationStore();
+
+  const { chains, fetchChainsInProgress } = useDataStore();
 
   const handleClick = (value) => {
     setDestinationChain(value);
-    hideDestinationChainsDialog();
+    hideDestinationChainDialog();
   };
 
   return (
     <Dialog
       className={styles.dialog}
-      onClose={() => hideDestinationChainsDialog()}
-      open={destinationChainsDialogOpen}
+      onClose={() => hideDestinationChainDialog()}
+      open={destinationChainDialogOpen}
     >
       <div className={styles.dialog_content}>
         <div className={styles.dialog_heading}>
-          <IconButton onClick={() => hideDestinationChainsDialog()}>
+          <IconButton onClick={() => hideDestinationChainDialog()}>
             <IoArrowBackOutline />
           </IconButton>
-          <h2>Select Source Network</h2>
+          <h2>Select Destination Network</h2>
         </div>
-        {postDestinationInProgress ? (
+        {fetchChainsInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          destinationData &&
-          destinationData.dest_assets &&
-          Object.keys(destinationData.dest_assets).map((chain) => (
+          chains &&
+          chains.map((chain) => (
             <div
               className={styles.chain_info}
-              key={chain}
+              key={chain.chain_id}
               onClick={() => handleClick(chain)}
             >
-              {/*<Image*/}
-              {/*  src={chain.logo_uri}*/}
-              {/*  alt={chain.chain_name}*/}
-              {/*  width={30}*/}
-              {/*  height={30}*/}
-              {/*/>*/}
+              <Image src={chain.logo_uri} alt={chain.chain_name} width={30} height={30} />
               <div className={styles.chain_name}>
-                <p>{chain}</p>
-                {/*<span>{chain.chain_id}</span>*/}
+                <p>{chain.chain_name}</p>
+                <span>{chain.chain_id}</span>
               </div>
             </div>
           ))

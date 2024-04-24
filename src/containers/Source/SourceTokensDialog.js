@@ -1,24 +1,18 @@
-import * as React from 'react';
-import { Dialog, IconButton, CircularProgress } from '@mui/material';
-import useSourceTokensStore from '../../store/sourceTokensStore';
-import useSourceChainsStore from '../../store/sourceChainsStore';
+import React from 'react';
 import styles from './Source.module.css';
+import useSourceStore from '../../store/sourceStore';
+import useDataStore from '../../store/dataStore';
+import { Dialog, IconButton, CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 const SourceTokensDialog = () => {
-  const { selectedSourceChain } = useSourceChainsStore();
-
-  const {
-    hideSourceTokenDialog,
-    sourceTokenDialogOpen,
-    sourceTokensData,
-    selectSourceToken,
-    fetchSourceTokensDataInProgress,
-  } = useSourceTokensStore();
+  const { tokens, fetchTokensInProgress } = useDataStore();
+  const { sourceChain, hideSourceTokenDialog, sourceTokenDialogOpen, setSourceToken } =
+    useSourceStore();
 
   const handleClick = (value) => {
-    selectSourceToken(value);
+    setSourceToken(value);
     hideSourceTokenDialog();
   };
 
@@ -35,34 +29,27 @@ const SourceTokensDialog = () => {
           </IconButton>
           <h2>Select Source Token</h2>
         </div>
-        {fetchSourceTokensDataInProgress ? (
+        {fetchTokensInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          sourceTokensData &&
-          sourceTokensData[`${selectedSourceChain.chain_id}`] &&
-          sourceTokensData[`${selectedSourceChain.chain_id}`].assets &&
-          sourceTokensData[`${selectedSourceChain.chain_id}`].assets.map(
-            (token) => (
-              <div
-                className={styles.chain_info}
-                key={token.chain_id}
-                onClick={() => handleClick(token)}
-              >
-                <Image
-                  src={token.logo_uri}
-                  alt={token.denom}
-                  width={30}
-                  height={30}
-                />
-                <div className={styles.chain_name}>
-                  <p>{token.name}</p>
-                  <span>{token.chain_id}</span>
-                </div>
+          tokens &&
+          tokens[`${sourceChain.chain_id}`] &&
+          tokens[`${sourceChain.chain_id}`].assets &&
+          tokens[`${sourceChain.chain_id}`].assets.map((token) => (
+            <div
+              className={styles.chain_info}
+              key={token.chain_id}
+              onClick={() => handleClick(token)}
+            >
+              <Image src={token.logo_uri} alt={token.denom} width={30} height={30} />
+              <div className={styles.chain_name}>
+                <p>{token.name}</p>
+                <span>{token.chain_id}</span>
               </div>
-            )
-          )
+            </div>
+          ))
         )}
       </div>
     </Dialog>
