@@ -2,8 +2,10 @@
     margin-bottom: 20px;
 }
 
-.source > h2 {
-    margin-bottom: 10px;
+.source .heading {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .source .main_section {
@@ -117,4 +119,13 @@
     color: #FFF;
     text-transform: capitalize;
     margin-bottom: 4px;
+}
+
+.connect {
+    text-transform: inherit;
+    font-size: 14px;
+    border-radius: 30px;
+    padding: 6px 12px;
+    color: #fff;
+    border: 1px solid #a8a8a8;
 }

@@ -7,6 +7,7 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import Image from 'next/image';
 import SourceChainsDialog from './SourceChainsDialog';
 import SourceTokensDialog from './SourceTokensDialog';
+import ConnectSource from './connectSource';
 
 const Source = () => {
   const { chains, fetchChains, fetchTokens } = useDataStore();
@@ -39,7 +40,10 @@ const Source = () => {
 
   return (
     <div className={styles.source}>
-      <h2>Source</h2>
+      <div className={styles.heading}>
+        <h2>Source</h2>
+        {sourceChain && Object.keys(sourceChain).length > 0 ? <ConnectSource /> : null}
+      </div>
       <div className={styles.main_section}>
         <div className={styles.col1}>
           <Button onClick={() => showSourceChainDialog()}>
