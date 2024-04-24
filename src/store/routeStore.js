@@ -7,7 +7,13 @@ const useRouteStore = create((set) => ({
   routeFound: '',
   postRouteInProgress: false,
 
-  postRouteRequest: async (sourceDenom, sourceChainId, destinationDenom, destinationChainId) => {
+  postRouteRequest: async (
+    sourceAmount,
+    sourceDenom,
+    sourceChainId,
+    destinationDenom,
+    destinationChainId
+  ) => {
     set({ postRouteInProgress: true });
     const options = {
       method: 'POST',
@@ -17,7 +23,7 @@ const useRouteStore = create((set) => ({
         'content-type': 'application/json',
       },
       data: {
-        amount_in: '1000000',
+        amount_in: sourceAmount,
         source_asset_denom: sourceDenom,
         source_asset_chain_id: sourceChainId,
         dest_asset_denom: destinationDenom,

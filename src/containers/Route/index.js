@@ -7,17 +7,19 @@ import useDestinationStore from '../../store/destinationStore';
 
 const Route = () => {
   const { routeData, postRouteRequest, postRouteInProgress, routeFound } = useRouteStore();
-  const { sourceChain, sourceToken } = useSourceStore();
+  const { sourceChain, sourceToken, sourceAmount } = useSourceStore();
   const { destinationChain, destinationToken } = useDestinationStore();
 
   const handleClick = () => {
     if (
+      sourceAmount &&
       sourceToken.denom &&
       sourceChain.chain_id &&
       destinationToken.denom &&
       destinationChain.chain_id
     ) {
       postRouteRequest(
+        sourceAmount,
         sourceToken.denom,
         sourceChain.chain_id,
         destinationToken.denom,
@@ -26,7 +28,10 @@ const Route = () => {
     }
   };
 
+  console.log(sourceAmount);
+
   const disable =
+    !sourceAmount ||
     !sourceToken.denom ||
     !sourceChain.chain_id ||
     !destinationToken.denom ||
