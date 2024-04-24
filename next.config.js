@@ -4,6 +4,6 @@ module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['raw.githubusercontent.com'],
+    domains: ['raw.githubusercontent.com', 'ipfs.io', 'i.ibb.co'],
   },
 };
