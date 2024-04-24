@@ -8,7 +8,7 @@ import useSourceChainsStore from '../../store/sourceChainsStore';
 import useSourceTokensStore from '../../store/sourceTokensStore';
 
 const Home = () => {
-  const { destinationData, postDestinationRequest } = useDestinationStore();
+  const { postDestinationRequest } = useDestinationStore();
   const { selectedToken } = useSourceTokensStore();
   const { selectedSourceChain } = useSourceChainsStore();
 
