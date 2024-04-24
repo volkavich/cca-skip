@@ -14,19 +14,19 @@ const useDestinationStore = create((set) => ({
     set({ destinationToken: token });
   },
 
-  showDestinationChainsDialog: () => {
+  showDestinationChainDialog: () => {
     set({ destinationChainDialogOpen: true });
   },
 
-  hideDestinationChainsDialog: () => {
+  hideDestinationChainDialog: () => {
     set({ destinationChainDialogOpen: false });
   },
 
-  showDestinationTokensDialog: () => {
+  showDestinationTokenDialog: () => {
     set({ destinationTokenDialogOpen: true });
   },
 
-  hideDestinationTokensDialog: () => {
+  hideDestinationTokenDialog: () => {
     set({ destinationTokenDialogOpen: false });
   },
 }));

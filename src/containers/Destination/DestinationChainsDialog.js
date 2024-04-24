@@ -1,42 +1,42 @@
-import * as React from 'react';
-import { Dialog, IconButton, CircularProgress } from '@mui/material';
+import React from 'react';
 import styles from './Destination.module.css';
+import useDestinationStore from '../../store/destinationStore';
+import useDataStore from '../../store/dataStore';
+import { Dialog, IconButton, CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
-import useDestinationStore from '../../store/destinationStore';
-import useSourceStore from '../../store/sourceStore';
 
 const DestinationChainsDialog = () => {
-  const { destinationChainsDialogOpen, hideDestinationChainsDialog, setDestinationChain } =
+  const { destinationChainDialogOpen, hideDestinationChainDialog, setDestinationChain } =
     useDestinationStore();
 
-  const { sourceChainsData, fetchSourceChainsDataInProgress } = useSourceStore();
+  const { chains, fetchChainsInProgress } = useDataStore();
 
   const handleClick = (value) => {
     setDestinationChain(value);
-    hideDestinationChainsDialog();
+    hideDestinationChainDialog();
   };
 
   return (
     <Dialog
       className={styles.dialog}
-      onClose={() => hideDestinationChainsDialog()}
-      open={destinationChainsDialogOpen}
+      onClose={() => hideDestinationChainDialog()}
+      open={destinationChainDialogOpen}
     >
       <div className={styles.dialog_content}>
         <div className={styles.dialog_heading}>
-          <IconButton onClick={() => hideDestinationChainsDialog()}>
+          <IconButton onClick={() => hideDestinationChainDialog()}>
             <IoArrowBackOutline />
           </IconButton>
           <h2>Select Destination Network</h2>
         </div>
-        {fetchSourceChainsDataInProgress ? (
+        {fetchChainsInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          sourceChainsData &&
-          sourceChainsData.map((chain) => (
+          chains &&
+          chains.map((chain) => (
             <div
               className={styles.chain_info}
               key={chain.chain_id}

@@ -1,48 +1,48 @@
-import * as React from 'react';
+import React from 'react';
 import { Dialog, IconButton, CircularProgress } from '@mui/material';
 import styles from './Destination.module.css';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import useDestinationStore from '../../store/destinationStore';
-import useSourceStore from '../../store/sourceStore';
+import useDataStore from '../../store/dataStore';
 
-const DestinationChainsDialog = () => {
+const DestinationTokensDialog = () => {
   const {
     destinationTokenDialogOpen,
-    hideDestinationTokensDialog,
+    hideDestinationTokenDialog,
     setDestinationToken,
     destinationChain,
   } = useDestinationStore();
 
-  const { fetchSourceTokensDataInProgress, sourceTokensData } = useSourceStore();
+  const { tokens, fetchTokensInProgress } = useDataStore();
 
   const handleClick = (value) => {
     setDestinationToken(value);
-    hideDestinationTokensDialog();
+    hideDestinationTokenDialog();
   };
 
   return (
     <Dialog
       className={styles.dialog}
-      onClose={() => hideDestinationTokensDialog()}
+      onClose={() => hideDestinationTokenDialog()}
       open={destinationTokenDialogOpen}
     >
       <div className={styles.dialog_content}>
         <div className={styles.dialog_heading}>
-          <IconButton onClick={() => hideDestinationTokensDialog()}>
+          <IconButton onClick={() => hideDestinationTokenDialog()}>
             <IoArrowBackOutline />
           </IconButton>
           <h2>Select Destination Token</h2>
         </div>
-        {fetchSourceTokensDataInProgress ? (
+        {fetchTokensInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          sourceTokensData &&
-          sourceTokensData[`${destinationChain.chain_id}`] &&
-          sourceTokensData[`${destinationChain.chain_id}`].assets &&
-          sourceTokensData[`${destinationChain.chain_id}`].assets.map((token) => (
+          tokens &&
+          tokens[`${destinationChain.chain_id}`] &&
+          tokens[`${destinationChain.chain_id}`].assets &&
+          tokens[`${destinationChain.chain_id}`].assets.map((token) => (
             <div
               className={styles.chain_info}
               key={token.chain_id}
@@ -61,4 +61,4 @@ const DestinationChainsDialog = () => {
   );
 };
 
-export default DestinationChainsDialog;
+export default DestinationTokensDialog;

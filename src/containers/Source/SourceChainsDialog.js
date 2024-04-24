@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { Dialog, IconButton, CircularProgress } from '@mui/material';
+import React from 'react';
+import styles from './Source.module.css';
 import useSourceStore from '../../store/sourceStore';
 import useDataStore from '../../store/dataStore';
-import styles from './Source.module.css';
+import { Dialog, IconButton, CircularProgress } from '@mui/material';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
 

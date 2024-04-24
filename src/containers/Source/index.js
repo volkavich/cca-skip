@@ -1,17 +1,15 @@
 import React from 'react';
 import styles from './Source.module.css';
 import useSourceStore from '../../store/sourceStore';
+import useDataStore from '../../store/dataStore';
 import { Button } from '@mui/material';
-
-import SourceChainsDialog from './SourceChainsDialog';
-import SourceTokensDialog from './SourceTokensDialog';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import Image from 'next/image';
-
-import useDataStore from '../../store/dataStore';
+import SourceChainsDialog from './SourceChainsDialog';
+import SourceTokensDialog from './SourceTokensDialog';
 
 const Source = () => {
-  const { chains, tokens, fetchChains, fetchTokens } = useDataStore();
+  const { chains, fetchChains, fetchTokens } = useDataStore();
 
   const {
     sourceChain,
