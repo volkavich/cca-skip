@@ -8,6 +8,7 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import DestinationChainsDialog from './DestinationChainsDialog';
 import DestinationTokensDialog from './DestinationTokensDialog';
 import ConnectDestination from './ConnectDestination';
+import InputField from './AmountTextField';
 
 const Destination = () => {
   const { chains, fetchChains, fetchTokens } = useDataStore();
@@ -84,6 +85,7 @@ const Destination = () => {
             <RiArrowDropDownLine />
           </Button>
         </div>
+        <InputField />
       </div>
       <DestinationChainsDialog />
       <DestinationTokensDialog />

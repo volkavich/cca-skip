@@ -8,7 +8,7 @@ import Image from 'next/image';
 import SourceChainsDialog from './SourceChainsDialog';
 import SourceTokensDialog from './SourceTokensDialog';
 import ConnectSource from './ConnectSource';
-import InputField from './InputField';
+import AmountTextField from './AmountTextField';
 
 const Source = () => {
   const { chains, fetchChains, fetchTokens } = useDataStore();
@@ -78,7 +78,7 @@ const Source = () => {
             <RiArrowDropDownLine />
           </Button>
         </div>
-        <InputField />
+        <AmountTextField />
       </div>
       <SourceChainsDialog />
       <SourceTokensDialog />

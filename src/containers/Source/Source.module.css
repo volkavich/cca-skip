@@ -36,10 +36,6 @@
     height: 25px;
 }
 
-.source .main_section .col1 > button:active svg {
-    transform: rotate(180deg);
-}
-
 .source .main_section .col1 .selected_chain {
     display: flex;
     justify-content: center;
