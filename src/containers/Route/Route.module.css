@@ -1,0 +1,16 @@
+.route {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.route > button {
+    padding: 12px 16px;
+    color: #FFFFFF;
+    background: black;
+    text-transform: capitalize;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
