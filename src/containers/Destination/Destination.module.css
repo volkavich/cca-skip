@@ -148,4 +148,5 @@
 
 .input > div input:disabled {
     -webkit-text-fill-color: unset;
+    color: #FFFFFF;
 }
