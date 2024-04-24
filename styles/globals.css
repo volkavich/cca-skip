@@ -29,7 +29,8 @@ p {
   height: 100vh;
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  /*flex-direction: column;*/
+  gap: 30px;
   align-items: center;
 }
 
