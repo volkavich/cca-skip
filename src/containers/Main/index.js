@@ -22,11 +22,6 @@ const Home = () => {
     }
   }, [selectedToken, selectedSourceChain]);
 
-  // console.log('token', selectedToken);
-  // console.log('sourceChain', selectedSourceChain);
-
-  console.log('destination===>', destinationData);
-
   return (
     <div className={styles.main}>
       <Source />

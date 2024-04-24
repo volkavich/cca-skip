@@ -9,12 +9,12 @@ import React from 'react';
 
 const Destination = () => {
   const {
-    destinationData,
     showDestinationChainsDialog,
     destinationChain,
     showDestinationTokensDialog,
     destinationToken,
   } = useDestinationStore();
+
   return (
     <div className={styles.destination}>
       <h2>Destination</h2>
