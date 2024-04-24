@@ -1,33 +1,26 @@
 import styles from './Route.module.css';
 import { Button } from '@mui/material';
 import useRouteStore from '../../store/routeStore';
-import useSourceChainsStore from '../../store/sourceChainsStore';
-import useSourceTokensStore from '../../store/sourceTokensStore';
+import useSourceStore from '../../store/sourceStore';
 import useDestinationStore from '../../store/destinationStore';
 
 const Route = () => {
   const { routeData, postRouteRequest } = useRouteStore();
-  const { selectedSourceChain } = useSourceChainsStore();
-  const { selectedToken } = useSourceTokensStore();
+  const { sourceChain, sourceToken } = useSourceStore();
   const { destinationChain, destinationToken } = useDestinationStore();
 
   const handleClick = () => {
     postRouteRequest(
-      selectedToken.denom,
-      selectedSourceChain.chain_id,
+      sourceToken.denom,
+      sourceChain.chain_id,
       destinationToken.denom,
       destinationChain
     );
   };
 
-  console.log(routeData);
-
   return (
     <div className={styles.route}>
-      {selectedToken &&
-      selectedSourceChain &&
-      destinationToken &&
-      destinationChain ? (
+      {sourceToken && sourceChain && destinationToken && destinationChain ? (
         <Button onClick={handleClick}>Get Route</Button>
       ) : null}
       {routeData && routeData.operations && routeData.operations[0].transfer ? (

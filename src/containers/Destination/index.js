@@ -1,4 +1,5 @@
 import styles from './Destination.module.css';
+import useSourceStore from '../../store/sourceStore';
 import useDestinationStore from '../../store/destinationStore';
 import { Button } from '@mui/material';
 import Image from 'next/image';
@@ -13,7 +14,22 @@ const Destination = () => {
     destinationChain,
     showDestinationTokensDialog,
     destinationToken,
+    postDestinationRequest,
   } = useDestinationStore();
+
+  const { sourceToken } = useSourceStore();
+  const { sourceChain } = useSourceStore();
+
+  React.useEffect(() => {
+    if (
+      sourceToken &&
+      Object.keys(sourceToken).length > 0 &&
+      sourceChain &&
+      Object.keys(sourceChain).length > 0
+    ) {
+      postDestinationRequest(sourceToken.denom, sourceChain.chain_id);
+    }
+  }, [sourceToken, sourceChain]);
 
   return (
     <div className={styles.destination}>

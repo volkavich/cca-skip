@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dialog, IconButton, CircularProgress } from '@mui/material';
-import useSourceChainsStore from '../../store/sourceChainsStore';
+import useSourceStore from '../../store/sourceStore';
 import styles from './Source.module.css';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
@@ -10,12 +10,12 @@ const SourceChainsDialog = () => {
     hideSourceChainDialog,
     sourceChainDialogOpen,
     sourceChainsData,
-    selectSourceChain,
+    setSourceChain,
     fetchSourceChainsDataInProgress,
-  } = useSourceChainsStore();
+  } = useSourceStore();
 
   const handleClick = (value) => {
-    selectSourceChain(value);
+    setSourceChain(value);
     hideSourceChainDialog();
   };
 
