@@ -1,18 +1,16 @@
 import * as React from 'react';
 import { Dialog, IconButton, CircularProgress } from '@mui/material';
 import styles from './Destination.module.css';
-// import Image from 'next/image';
+import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import useDestinationStore from '../../store/destinationStore';
+import useSourceStore from '../../store/sourceStore';
 
 const DestinationChainsDialog = () => {
-  const {
-    destinationData,
-    postDestinationInProgress,
-    destinationChainsDialogOpen,
-    hideDestinationChainsDialog,
-    setDestinationChain,
-  } = useDestinationStore();
+  const { destinationChainsDialogOpen, hideDestinationChainsDialog, setDestinationChain } =
+    useDestinationStore();
+
+  const { sourceChainsData, fetchSourceChainsDataInProgress } = useSourceStore();
 
   const handleClick = (value) => {
     setDestinationChain(value);
@@ -30,30 +28,24 @@ const DestinationChainsDialog = () => {
           <IconButton onClick={() => hideDestinationChainsDialog()}>
             <IoArrowBackOutline />
           </IconButton>
-          <h2>Select Source Network</h2>
+          <h2>Select Destination Network</h2>
         </div>
-        {postDestinationInProgress ? (
+        {fetchSourceChainsDataInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          destinationData &&
-          destinationData.dest_assets &&
-          Object.keys(destinationData.dest_assets).map((chain) => (
+          sourceChainsData &&
+          sourceChainsData.map((chain) => (
             <div
               className={styles.chain_info}
-              key={chain}
+              key={chain.chain_id}
               onClick={() => handleClick(chain)}
             >
-              {/*<Image*/}
-              {/*  src={chain.logo_uri}*/}
-              {/*  alt={chain.chain_name}*/}
-              {/*  width={30}*/}
-              {/*  height={30}*/}
-              {/*/>*/}
+              <Image src={chain.logo_uri} alt={chain.chain_name} width={30} height={30} />
               <div className={styles.chain_name}>
-                <p>{chain}</p>
-                {/*<span>{chain.chain_id}</span>*/}
+                <p>{chain.chain_name}</p>
+                <span>{chain.chain_id}</span>
               </div>
             </div>
           ))

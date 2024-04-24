@@ -64,12 +64,7 @@ const Source = () => {
           >
             {sourceToken && Object.keys(sourceToken).length > 0 ? (
               <div className={styles.selected_chain}>
-                <Image
-                  src={sourceToken.logo_uri}
-                  alt={sourceToken.name}
-                  width={30}
-                  height={30}
-                />
+                <Image src={sourceToken.logo_uri} alt={sourceToken.name} width={30} height={30} />
                 <p>{sourceToken.name}</p>
               </div>
             ) : (

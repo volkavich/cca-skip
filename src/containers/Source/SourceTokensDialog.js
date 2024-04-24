@@ -47,12 +47,7 @@ const SourceTokensDialog = () => {
               key={token.chain_id}
               onClick={() => handleClick(token)}
             >
-              <Image
-                src={token.logo_uri}
-                alt={token.denom}
-                width={30}
-                height={30}
-              />
+              <Image src={token.logo_uri} alt={token.denom} width={30} height={30} />
               <div className={styles.chain_name}>
                 <p>{token.name}</p>
                 <span>{token.chain_id}</span>

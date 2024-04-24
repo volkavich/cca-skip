@@ -11,25 +11,33 @@ import React from 'react';
 const Destination = () => {
   const {
     showDestinationChainsDialog,
-    destinationChain,
     showDestinationTokensDialog,
+    destinationChain,
     destinationToken,
-    postDestinationRequest,
+    destinationChainsDialogOpen,
+    destinationTokensDialogOpen,
   } = useDestinationStore();
 
-  const { sourceToken } = useSourceStore();
-  const { sourceChain } = useSourceStore();
+  const { sourceChainsData, fetchSourceChainData } = useSourceStore();
+
+  React.useEffect(() => {
+    if (destinationChainsDialogOpen && sourceChainsData && !sourceChainsData.length) {
+      fetchSourceChainData();
+    }
+  }, [destinationChainsDialogOpen]);
+
+  console.log('des token===>', destinationToken.chain_id);
 
   React.useEffect(() => {
     if (
-      sourceToken &&
-      Object.keys(sourceToken).length > 0 &&
-      sourceChain &&
-      Object.keys(sourceChain).length > 0
+      destinationTokensDialogOpen &&
+      destinationChain &&
+      Object.keys(destinationChain).length > 0 &&
+      destinationToken.chain_id !== destinationChain.chain_id
     ) {
-      postDestinationRequest(sourceToken.denom, sourceChain.chain_id);
+      fetchSourceTokenData(destinationToken.chain_id);
     }
-  }, [sourceToken, sourceChain]);
+  }, [destinationTokensDialogOpen]);
 
   return (
     <div className={styles.destination}>
@@ -37,9 +45,15 @@ const Destination = () => {
       <div className={styles.main_section}>
         <div className={styles.col1}>
           <Button onClick={() => showDestinationChainsDialog()}>
-            {destinationChain ? (
+            {destinationChain && Object.keys(destinationChain).length > 0 ? (
               <div className={styles.selected_chain}>
-                <p>{destinationChain}</p>
+                <Image
+                  src={destinationChain.logo_uri}
+                  alt={destinationChain.chain_name}
+                  width={30}
+                  height={30}
+                />
+                <p>{destinationChain.chain_name}</p>
               </div>
             ) : (
               'Select Chain'
@@ -47,7 +61,7 @@ const Destination = () => {
             <RiArrowDropDownLine />
           </Button>
           <Button
-            disabled={!destinationChain}
+            disabled={!destinationChain || !Object.keys(destinationChain).length}
             onClick={() => showDestinationTokensDialog()}
           >
             {destinationToken && Object.keys(destinationToken).length > 0 ? (

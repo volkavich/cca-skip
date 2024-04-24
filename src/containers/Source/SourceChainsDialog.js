@@ -44,12 +44,7 @@ const SourceChainsDialog = () => {
               key={chain.chain_id}
               onClick={() => handleClick(chain)}
             >
-              <Image
-                src={chain.logo_uri}
-                alt={chain.chain_name}
-                width={30}
-                height={30}
-              />
+              <Image src={chain.logo_uri} alt={chain.chain_name} width={30} height={30} />
               <div className={styles.chain_name}>
                 <p>{chain.chain_name}</p>
                 <span>{chain.chain_id}</span>
