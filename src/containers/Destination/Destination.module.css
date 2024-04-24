@@ -2,8 +2,10 @@
     margin-bottom: 20px;
 }
 
-.destination > h2 {
-    margin-bottom: 10px;
+.destination .heading {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .destination .main_section {
@@ -16,8 +18,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 12px;
+    margin-bottom: 20px;
 }
 
 .destination .main_section .col1 > button {
@@ -26,16 +28,12 @@
     justify-content: space-between;
     color: #FFF;
     border: 1px solid rgba(255, 255, 255, 0.44);
-    padding: 10px 12px;
+    padding: 12px;
 }
 
 .destination .main_section .col1 > button svg {
     width: 25px;
     height: 25px;
-}
-
-.destination .main_section .col1 > button:active svg {
-    transform: rotate(180deg);
 }
 
 .destination .main_section .col1 .selected_chain {
@@ -52,7 +50,7 @@
 }
 
 .dialog > div:nth-child(3) > div {
-    width: 500px;
+    width: 450px;
     height: 500px;
     background: #222831;
     padding: 24px;
@@ -116,4 +114,38 @@
     color: #FFF;
     text-transform: capitalize;
     margin-bottom: 4px;
+}
+
+.connect {
+    text-transform: inherit;
+    font-size: 14px;
+    border-radius: 30px;
+    padding: 2px 12px;
+    color: #fff;
+    border: 1px solid #a8a8a8;
+}
+
+
+.input {
+    width: 100%;
+}
+
+.input > div {
+    color: #fff;
+}
+
+.input label {
+    color: #fff !important;
+}
+
+.input > div fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.44) !important;
+}
+
+.input > div fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.44);
+}
+
+.input > div input:disabled {
+    -webkit-text-fill-color: unset;
 }

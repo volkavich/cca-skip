@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import DestinationChainsDialog from './DestinationChainsDialog';
 import DestinationTokensDialog from './DestinationTokensDialog';
+import ConnectDestination from './ConnectDestination';
+import InputField from './AmountTextField';
 
 const Destination = () => {
   const { chains, fetchChains, fetchTokens } = useDataStore();
@@ -39,7 +41,12 @@ const Destination = () => {
 
   return (
     <div className={styles.destination}>
-      <h2>Destination</h2>
+      <div className={styles.heading}>
+        <h2>Destination</h2>
+        {destinationChain && Object.keys(destinationChain).length > 0 ? (
+          <ConnectDestination />
+        ) : null}
+      </div>
       <div className={styles.main_section}>
         <div className={styles.col1}>
           <Button onClick={() => showDestinationChainDialog()}>
@@ -78,6 +85,7 @@ const Destination = () => {
             <RiArrowDropDownLine />
           </Button>
         </div>
+        <InputField />
       </div>
       <DestinationChainsDialog />
       <DestinationTokensDialog />

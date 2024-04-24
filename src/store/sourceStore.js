@@ -3,6 +3,7 @@ import { create } from 'zustand';
 const useSourceStore = create((set) => ({
   sourceChain: [],
   sourceToken: [],
+  sourceAmount: null,
   sourceChainDialogOpen: false,
   sourceTokenDialogOpen: false,
 
@@ -12,6 +13,10 @@ const useSourceStore = create((set) => ({
 
   setSourceToken: (token) => {
     set({ sourceToken: token });
+  },
+
+  setSourceAmount: (value) => {
+    set({ sourceAmount: value });
   },
 
   showSourceChainDialog: () => {
