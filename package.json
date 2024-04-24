@@ -26,6 +26,7 @@
     "@emotion/styled": "^11.11.5",
     "@interchain-ui/react": "^1.21.16",
     "@mui/material": "^5.15.15",
+    "axios": "^1.6.8",
     "chain-registry": "1.25.4",
     "cosmos-kit": "2.8.6",
     "fast-fuzzy": "1.12.0",

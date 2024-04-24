@@ -1,3 +1,120 @@
 .source {
+    margin-bottom: 20px;
+}
 
+.source > h2 {
+    margin-bottom: 10px;
+}
+
+.source .main_section {
+    padding: 12px;
+    border-radius: 8px;
+    /*border: 1px solid #a698d8;*/
+}
+
+.source .main_section .col1 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.source .main_section .col1 > button {
+    width: 50%;
+    text-transform: capitalize;
+    justify-content: space-between;
+    color: #FFF;
+    border: 1px solid rgba(255, 255, 255, 0.44);
+    padding: 10px 12px;
+}
+
+.source .main_section .col1 > button svg {
+    width: 25px;
+    height: 25px;
+}
+
+.source .main_section .col1 > button:active svg {
+    transform: rotate(180deg);
+}
+
+.source .main_section .col1 .selected_chain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.source .main_section .col1 .selected_chain > img {
+    border-radius: 50%;
+}
+
+
+.dialog > div:nth-child(3) > div {
+    width: 500px;
+    height: 500px;
+    background: #222831;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: hidden;
+}
+
+.dialog_content {
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.dialog_content .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dialog_content .dialog_heading {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+}
+
+.dialog_content .dialog_heading > button {
+    color: #fff;
+}
+
+.dialog_content .chain_info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.dialog_content .chain_info:hover {
+    background: rgba(113, 130, 159, 0.39);
+}
+
+.dialog_content .chain_info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.dialog_content .chain_info .chain_name {
+    font-size: 14px;
+    color: rgb(140, 140, 140);
+}
+
+.dialog_content .chain_info .chain_name > p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #FFF;
+    text-transform: capitalize;
+    margin-bottom: 4px;
 }
