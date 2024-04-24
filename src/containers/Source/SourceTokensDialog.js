@@ -4,16 +4,12 @@ import useSourceStore from '../../store/sourceStore';
 import styles from './Source.module.css';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
+import useDataStore from '../../store/dataStore';
 
 const SourceTokensDialog = () => {
-  const {
-    sourceChain,
-    hideSourceTokenDialog,
-    sourceTokenDialogOpen,
-    sourceTokensData,
-    setSourceToken,
-    fetchSourceTokensDataInProgress,
-  } = useSourceStore();
+  const { tokens, fetchTokensInProgress } = useDataStore();
+  const { sourceChain, hideSourceTokenDialog, sourceTokenDialogOpen, setSourceToken } =
+    useSourceStore();
 
   const handleClick = (value) => {
     setSourceToken(value);
@@ -33,15 +29,15 @@ const SourceTokensDialog = () => {
           </IconButton>
           <h2>Select Source Token</h2>
         </div>
-        {fetchSourceTokensDataInProgress ? (
+        {fetchTokensInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          sourceTokensData &&
-          sourceTokensData[`${sourceChain.chain_id}`] &&
-          sourceTokensData[`${sourceChain.chain_id}`].assets &&
-          sourceTokensData[`${sourceChain.chain_id}`].assets.map((token) => (
+          tokens &&
+          tokens[`${sourceChain.chain_id}`] &&
+          tokens[`${sourceChain.chain_id}`].assets &&
+          tokens[`${sourceChain.chain_id}`].assets.map((token) => (
             <div
               className={styles.chain_info}
               key={token.chain_id}

@@ -1,18 +1,14 @@
 import * as React from 'react';
 import { Dialog, IconButton, CircularProgress } from '@mui/material';
 import useSourceStore from '../../store/sourceStore';
+import useDataStore from '../../store/dataStore';
 import styles from './Source.module.css';
 import Image from 'next/image';
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 const SourceChainsDialog = () => {
-  const {
-    hideSourceChainDialog,
-    sourceChainDialogOpen,
-    sourceChainsData,
-    setSourceChain,
-    fetchSourceChainsDataInProgress,
-  } = useSourceStore();
+  const { chains, fetchChainsInProgress } = useDataStore();
+  const { hideSourceChainDialog, sourceChainDialogOpen, setSourceChain } = useSourceStore();
 
   const handleClick = (value) => {
     setSourceChain(value);
@@ -32,13 +28,13 @@ const SourceChainsDialog = () => {
           </IconButton>
           <h2>Select Source Network</h2>
         </div>
-        {fetchSourceChainsDataInProgress ? (
+        {fetchChainsInProgress ? (
           <div className={styles.loader}>
             <CircularProgress />
           </div>
         ) : (
-          sourceChainsData &&
-          sourceChainsData.map((chain) => (
+          chains &&
+          chains.map((chain) => (
             <div
               className={styles.chain_info}
               key={chain.chain_id}

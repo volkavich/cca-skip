@@ -2,27 +2,29 @@ import React from 'react';
 import styles from './Source.module.css';
 import useSourceStore from '../../store/sourceStore';
 import { Button } from '@mui/material';
+
 import SourceChainsDialog from './SourceChainsDialog';
 import SourceTokensDialog from './SourceTokensDialog';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import Image from 'next/image';
 
+import useDataStore from '../../store/dataStore';
+
 const Source = () => {
+  const { chains, tokens, fetchChains, fetchTokens } = useDataStore();
+
   const {
-    fetchSourceChainData,
-    fetchSourceTokenData,
-    sourceChainsData,
     sourceChain,
     sourceToken,
     showSourceChainDialog,
+    sourceChainDialogOpen,
     showSourceTokenDialog,
     sourceTokenDialogOpen,
-    sourceChainDialogOpen,
   } = useSourceStore();
 
   React.useEffect(() => {
-    if (sourceChainDialogOpen && sourceChainsData && !sourceChainsData.length) {
-      fetchSourceChainData();
+    if (sourceChainDialogOpen && chains && !chains.length) {
+      fetchChains();
     }
   }, [sourceChainDialogOpen]);
 
@@ -33,7 +35,7 @@ const Source = () => {
       Object.keys(sourceChain).length > 0 &&
       sourceToken.chain_id !== sourceChain.chain_id
     ) {
-      fetchSourceTokenData(sourceChain.chain_id);
+      fetchTokens(sourceChain.chain_id);
     }
   }, [sourceTokenDialogOpen]);
 
