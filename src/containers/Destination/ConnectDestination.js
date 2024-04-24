@@ -1,12 +1,12 @@
-import styles from './Source.module.css';
+import styles from './Destination.module.css';
 import { Button } from '@mui/material';
 import { useChain } from '@cosmos-kit/react';
-import useSourceStore from '../../store/sourceStore';
 import { getWrapAddress } from '../../../utils/strings';
+import useDestinationStore from '../../store/destinationStore';
 
-const ConnectSource = () => {
-  const { sourceChain } = useSourceStore();
-  const chainName = sourceChain.chain_name;
+const ConnectDestination = () => {
+  const { destinationChain } = useDestinationStore();
+  const chainName = destinationChain.chain_name;
   const { status, address, connect, openView } = useChain(chainName);
 
   const handleClick = () => {
@@ -28,4 +28,4 @@ const ConnectSource = () => {
   );
 };
 
-export default ConnectSource;
+export default ConnectDestination;

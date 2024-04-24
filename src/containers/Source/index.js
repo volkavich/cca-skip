@@ -7,7 +7,7 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import Image from 'next/image';
 import SourceChainsDialog from './SourceChainsDialog';
 import SourceTokensDialog from './SourceTokensDialog';
-import ConnectSource from './connectSource';
+import ConnectSource from './ConnectSource';
 
 const Source = () => {
   const { chains, fetchChains, fetchTokens } = useDataStore();
