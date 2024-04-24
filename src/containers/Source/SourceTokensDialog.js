@@ -22,8 +22,6 @@ const SourceTokensDialog = () => {
     hideSourceTokenDialog();
   };
 
-  console.log(sourceTokensData);
-
   return (
     <Dialog
       className={styles.dialog}

@@ -63,7 +63,12 @@ const Source = () => {
             )}
             <RiArrowDropDownLine />
           </Button>
-          <Button onClick={() => showSourceTokenDialog()}>
+          <Button
+            disabled={
+              !selectedSourceChain || !Object.keys(selectedSourceChain).length
+            }
+            onClick={() => showSourceTokenDialog()}
+          >
             {selectedToken && Object.keys(selectedToken).length > 0 ? (
               <div className={styles.selected_chain}>
                 <Image
