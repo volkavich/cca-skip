@@ -28,8 +28,6 @@ const Route = () => {
     }
   };
 
-  console.log(sourceAmount);
-
   const disable =
     !sourceAmount ||
     !sourceToken.denom ||
@@ -40,7 +38,7 @@ const Route = () => {
   return (
     <div className={styles.route}>
       <Button disabled={disable} onClick={handleClick}>
-        {postRouteInProgress ? <CircularProgress /> : <p>Get Route</p>}
+        {postRouteInProgress ? <CircularProgress /> : 'Get Route'}
       </Button>
       {routeFound === 'true' && routeData && Object.keys(routeData).length ? (
         <div className={styles.green}>
