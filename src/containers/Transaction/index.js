@@ -1,13 +1,12 @@
 import React from 'react';
 import styles from './Transaction.module.css';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import useRouteStore from '../../store/routeStore';
 import useTransactionStore from '../../store/transactionStore';
-import route from '../Route';
 
 const Transaction = () => {
   const { routeData } = useRouteStore();
-  const { msg, postMsgRequest } = useTransactionStore();
+  const { msg, postMsgRequest, postMsgInProgress } = useTransactionStore();
   const server = typeof window === 'undefined';
   let connectedChains;
   const addressList = [];
@@ -45,11 +44,13 @@ const Transaction = () => {
     }
   };
 
-  return (
-    <Button className={styles.transaction} onClick={handleClick}>
-      Submit
-    </Button>
-  );
+  if (routeData && Object.keys(routeData).length > 0) {
+    return (
+      <div className={styles.transaction}>
+        <Button onClick={handleClick}>{postMsgInProgress ? <CircularProgress /> : 'Submit'}</Button>
+      </div>
+    );
+  }
 };
 
 export default Transaction;

@@ -1,0 +1,18 @@
+.transaction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 12px;
+}
+
+.transaction > button:hover,
+.transaction > button {
+    width: 100%;
+    padding: 12px 16px;
+    color: #FFFFFF;
+    background: #196c41;
+    text-transform: capitalize;
+    font-size: 16px;
+    border-radius: 8px;
+}
