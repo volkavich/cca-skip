@@ -3,6 +3,7 @@ import styles from './Main.module.css';
 import Source from '../Source';
 import Destination from '../Destination';
 import Route from '../Route';
+import Transaction from '../Transaction';
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Source />
       <Destination />
       <Route />
+      <Transaction />
     </div>
   );
 };

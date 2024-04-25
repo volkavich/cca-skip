@@ -28,8 +28,6 @@ const Route = () => {
     }
   };
 
-  console.log(sourceAmount);
-
   const disable =
     !sourceAmount ||
     !sourceToken.denom ||
