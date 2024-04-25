@@ -11,7 +11,7 @@ const AmountTextField = () => {
         disabled
         className={styles.input}
         variant='outlined'
-        value={routeData.amount_out}
+        value={(routeData.amount_out)/1000000}
         label='Destination Amount'
       />
     );

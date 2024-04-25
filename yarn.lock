@@ -462,9 +462,9 @@
   dependencies:
     "@cosmos-kit/compass-extension" "^2.6.9"
 
-"@cosmos-kit/core@^2.8.9":
+"@cosmos-kit/core@2.8.x", "@cosmos-kit/core@^2.8.9":
   version "2.8.9"
-  resolved "https://registry.npmjs.org/@cosmos-kit/core/-/core-2.8.9.tgz#3e6b40fa14c5d143065d3ec6a894e386f95ea4ad"
+  resolved "https://registry.yarnpkg.com/@cosmos-kit/core/-/core-2.8.9.tgz#3e6b40fa14c5d143065d3ec6a894e386f95ea4ad"
   integrity sha512-e0Fqbut9mqHlFS6QnLSbU8AFYPtXUcKVaMJsL1dKbfTotACsECgnAs4gzXaTFo3sTwEJrNZ6cq86qvqV85X6uw==
   dependencies:
     "@chain-registry/client" "^1.18.0"
