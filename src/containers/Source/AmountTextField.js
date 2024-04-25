@@ -9,7 +9,8 @@ const AmountTextField = () => {
     if (isNaN(e.target.value)) {
       return;
     }
-    setSourceAmount(e.target.value);
+    const value = String(e.target.value * 1000000)
+    setSourceAmount(value);
   };
 
   return (
@@ -20,7 +21,7 @@ const AmountTextField = () => {
       }
       className={styles.input}
       variant='outlined'
-      value={sourceAmount}
+      value={sourceAmount && sourceAmount / 1000000}
       label='Source Amount'
       onChange={handleChange}
     />

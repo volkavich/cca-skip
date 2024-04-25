@@ -3,7 +3,7 @@ import { SKIP_API as URL, CLIENT_ID } from '../../config';
 import axios from 'axios';
 
 const useTransactionStore = create((set) => ({
-  msg: [],
+  msgResponse: [],
   postMsgInProgress: false,
 
   postMsgRequest: async (
@@ -41,10 +41,10 @@ const useTransactionStore = create((set) => ({
     try {
       const response = await axios.request(options);
       set({
-        msg: response.data,
+        msgResponse: response.data,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       set({ postMsgInProgress: false });
     }
