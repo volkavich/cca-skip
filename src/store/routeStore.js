@@ -30,7 +30,7 @@ const useRouteStore = create((set) => ({
         dest_asset_chain_id: destinationChainId,
         cumulative_affiliate_fee_bps: '0',
         allow_multi_tx: true,
-        allow_unsafe: true,
+        allow_unsafe: false,
         smart_relay: true,
       },
     };
