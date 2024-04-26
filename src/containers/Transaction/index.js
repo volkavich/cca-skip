@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Transaction.module.css';
 import { Button, CircularProgress } from '@mui/material';
 import useRouteStore from '../../store/routeStore';
 import useTransactionStore from '../../store/transactionStore';
 import { GasPrice, SigningStargateClient } from '@cosmjs/stargate';
-import * as chainRegistry from "chain-registry";
-import { useWalletClient } from "@cosmos-kit/react";
+import * as chainRegistry from 'chain-registry';
+import { useWalletClient } from '@cosmos-kit/react';
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 
 const Transaction = () => {
+  const [loading, setLoading] = useState(false);
   const { routeData } = useRouteStore();
-  const { msgResponse, postMsgRequest, postMsgInProgress } = useTransactionStore();
-  const {client} = useWalletClient();
+  const { postMsgRequest, postMsgInProgress } = useTransactionStore();
+  const { client } = useWalletClient();
   const server = typeof window === 'undefined';
   let connectedChains;
   const addressList = [];
-
 
   const handleClick = async () => {
     if (!server) {
@@ -45,18 +45,26 @@ const Transaction = () => {
         routeData.amount_in,
         routeData.amount_out,
         addressList,
-        routeData.operations
+        routeData.operations,
+        async (msgResponse) => {
+          if (msgResponse && Object.keys(msgResponse).length > 0) {
+            try {
+              setLoading(true);
+              const txResult = await signAndSubmitTx(msgResponse);
+              console.log(txResult);
+            } catch (error) {
+              console.log(error);
+            } finally {
+              setLoading(false);
+            }
+          }
+        }
       );
-    }
-
-    if (msgResponse && Object.keys(msgResponse).length > 0) {
-      const txResult = await signAndSubmitTx(msgResponse);
-      console.log(txResult);
     }
   };
 
-  const signAndSubmitTx = async () => {
-    const multiHopMsg = msgResponse.msgs[0].multi_chain_msg
+  const signAndSubmitTx = async (msgResponse) => {
+    const multiHopMsg = msgResponse.msgs[0].multi_chain_msg;
     const msgJSON = JSON.parse(multiHopMsg && multiHopMsg.msg);
 
     // get signing client
@@ -76,9 +84,9 @@ const Transaction = () => {
     let msg = {};
     let client1;
 
-    if (multiHopMsg.msg_type_url === "/ibc.applications.transfer.v1.MsgTransfer") {
+    if (multiHopMsg.msg_type_url === '/ibc.applications.transfer.v1.MsgTransfer') {
       client1 = await SigningStargateClient.connectWithSigner(RPC_URL, signer, {
-        gasPrice: GasPrice.fromString(`${averageGasPrice}${feeInfo.denom}`)
+        gasPrice: GasPrice.fromString(`${averageGasPrice}${feeInfo.denom}`),
       });
 
       msg = {
@@ -97,7 +105,7 @@ const Transaction = () => {
       client1 = await SigningCosmWasmClient.connectWithSigner(RPC_URL, signer, options);
 
       msg = {
-        typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
+        typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
         value: {
           sender: msgJSON.sender,
           contract: msgJSON.contract,
@@ -107,14 +115,18 @@ const Transaction = () => {
       };
     }
 
-    const tx = await client1.signAndBroadcast(msgJSON.sender, [msg], "auto");
+    const tx = await client1.signAndBroadcast(msgJSON.sender, [msg], 'auto');
     return tx;
-  }
+  };
+
+  const inProgress = postMsgInProgress || loading;
 
   if (routeData && Object.keys(routeData).length > 0) {
     return (
       <div className={styles.transaction}>
-        <Button onClick={handleClick}>{postMsgInProgress ? <CircularProgress /> : 'Submit'}</Button>
+        <Button disabled={inProgress} onClick={handleClick}>
+          {inProgress ? <CircularProgress /> : 'Submit'}
+        </Button>
       </div>
     );
   }
